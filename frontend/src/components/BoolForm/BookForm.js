@@ -15,7 +15,8 @@ const handleAddRandomBook = () => {
   const randomBook = booksData[randomIndex];
   const randomBookWithID = {
     ...randomBook,
-    id: uuidv4()
+    id: uuidv4(),
+    isFavorite: false
   }
   dispatch(addBook(randomBookWithID));
 }
@@ -24,7 +25,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
 
   if (title && author) {
-    const book = { title, author, id: uuidv4() };
+    const book = { title, author, id: uuidv4(), isFavorite: false };
     dispatch(addBook(book)); // функция добавления книги с помощью диспатча (фнкция из redux)
     setTitle('');
     setAuthor('');
