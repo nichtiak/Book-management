@@ -1,34 +1,32 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addBook } from '../../redux/books/actionCreators';
-import booksData from '../../data/books.json';
-import createBookWithID from '../../utils/createBookWithID';
-import './BookForm.css';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addBook } from '../../redux/books/actionCreators'
+import booksData from '../../data/books.json'
+import createBookWithID from '../../utils/createBookWithID'
+import './BookForm.css'
 
 const BookForm = () => {
-const [title, setTitle] = useState('');
-const [author, setAuthor] = useState('');
-const dispatch = useDispatch();
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const dispatch = useDispatch()
 
-const handleAddRandomBook = () => {
-  const randomIndex = Math.floor(Math.random() * booksData.length);
-  const randomBook = booksData[randomIndex];
-
-  const randomBookWithID = createBookWithID(randomBook);
-
-  dispatch(addBook(randomBookWithID));
-}
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  if (title && author) {
-    const book = createBookWithID({ title, author });
-    dispatch(addBook(book)); // функция добавления книги с помощью диспатча (фнкция из redux)
-    setTitle('');
-    setAuthor('');
+  const handleAddRandomBook = () => {
+    const randomIndex = Math.floor(Math.random() * booksData.length)
+    const randomBook = booksData[randomIndex]
+    const randomBookWithID = createBookWithID(randomBook)
+    dispatch(addBook(randomBookWithID))
   }
-} 
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (title && author) {
+      const book = createBookWithID({ title, author })
+      dispatch(addBook(book)) // функция добавления книги с помощью диспатча (фнкция из redux)
+      setTitle('')
+      setAuthor('')
+    }
+  }
 
   return (
     <div className="app-block book-form">
@@ -36,17 +34,29 @@ const handleSubmit = (e) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title: </label>
-          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <div>
           <label htmlFor="author">Author: </label>
-          <input type="text" id="author" value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input
+            type="text"
+            id="author"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
         </div>
         <button type="submit">Add Book</button>
-        <button type="button" onClick={handleAddRandomBook}>Add Random</button>
+        <button type="button" onClick={handleAddRandomBook}>
+          Add Random
+        </button>
       </form>
     </div>
-  );
+  )
 }
 
 export default BookForm
