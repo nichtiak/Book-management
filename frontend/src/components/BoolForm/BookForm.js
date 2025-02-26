@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 // import axios from 'axios'
 // import { addBook } from '../../redux/books/actionCreators'
 import { addBook, fetchBook } from '../../redux/slices/booksSlice'
+import { setError } from '../../redux/slices/errorSlice'
 import booksData from '../../data/books.json'
 import createBookWithID from '../../utils/createBookWithID'
 import './BookForm.css'
@@ -27,6 +28,8 @@ const BookForm = () => {
       dispatch(addBook(book)) // функция добавления книги с помощью диспатча (фнкция из redux)
       setTitle('')
       setAuthor('')
+    } else {
+      dispatch(setError('You must fill title and author'))
     }
   }
 
@@ -41,7 +44,7 @@ const BookForm = () => {
   //   }
   // }
 
-  const handleAddRandomBookViaAPI = async () => {
+  const handleAddRandomBookViaAPI = () => {
     dispatch(fetchBook())
   }
   return (
