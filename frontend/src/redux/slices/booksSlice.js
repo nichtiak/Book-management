@@ -32,11 +32,20 @@ const booksSlice = createSlice({
       return state.map((book) => (book.id === action.payload ? { ...book, isFavorite: !book.isFavorite } : book));
     }
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchBook.fulfilled, (state, action) => {
-      state.push(createBookWithID(action.payload, 'API'))
-    })
-  }
+  // option 1
+  // extraReducers: {
+  //   [fetchBook.fulfilled]: (state, action) => {
+  //     if (action.payload.title && action.payload.author) {
+  //       state.push(createBookWithID(action.payload, 'API'))
+  //     }
+  //   },
+  // }
+    // option 2
+    extraReducers: (builder) => {
+      builder.addCase(fetchBook.fulfilled, (state, action) => {
+        state.push(createBookWithID(action.payload, 'API'))
+      })
+    }
 })
 
 
